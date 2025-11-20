@@ -1,4 +1,5 @@
-﻿
+﻿using CIS207.Input;
+
 namespace CIS207.Project11FileBasedSalesSummaryWithSubtotals
 {
     class Program
@@ -6,7 +7,12 @@ namespace CIS207.Project11FileBasedSalesSummaryWithSubtotals
         static void Main(string[] args)
         {
             // get file
-            string filePath = "sales-data.csv";
+            string[] files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.csv");
+            for (int i = 0; i < files.Length; i++)
+            { Console.WriteLine($"{i + 1}. {Path.GetFileName(files[i])}"); }
+            Console.WriteLine("Select a file by number: ");
+            int fileIndex = GetInput.AsInt("File Number", 1, files.Length);
+            string filePath = files[fileIndex - 1];
 
             Console.WriteLine("=== Sales Summary by Region ===");
             Console.WriteLine($"Reading file: {filePath}");
