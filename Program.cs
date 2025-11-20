@@ -6,27 +6,17 @@ namespace CIS207.Project11FileBasedSalesSummaryWithSubtotals
     {
         static void Main(string[] args)
         {
-            // get file
-            string[] files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.csv");
-            for (int i = 0; i < files.Length; i++)
-            { Console.WriteLine($"{i + 1}. {Path.GetFileName(files[i])}"); }
-            Console.WriteLine("Select a file by number: ");
-            int fileIndex = GetInput.AsInt("File Number", 1, files.Length);
-            string filePath = files[fileIndex - 1];
-
-            Console.WriteLine("=== Sales Summary by Region ===");
-            Console.WriteLine($"Reading file: {filePath}");
-            Console.WriteLine();
+            string filePath = GetFilePath();
 
             // if file not found
             if (!File.Exists(filePath))
             {
                 Console.WriteLine("ERROR: File not found.");
-                Console.WriteLine("Make sure sales-data.csv is in the correct folder.");
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
                 return;
             }
+            Console.WriteLine("=== Sales Summary by Region ===");
 
             // initialize fields
             string currentDepartment = null;
@@ -116,11 +106,23 @@ namespace CIS207.Project11FileBasedSalesSummaryWithSubtotals
             Console.WriteLine("Demo complete. Press any key to exit...");
             Console.ReadKey();
 
-
-
-
         }
 
+        private static string GetFilePath()
+        {
+            // get file
+            string[] files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.csv");
+            for (int i = 0; i < files.Length; i++)
+            { Console.WriteLine($"{i + 1}. {Path.GetFileName(files[i])}"); }
+            Console.WriteLine("Select a file by number: ");
+            int fileIndex = GetInput.AsInt("File Number", 1, files.Length);
+            string filePath = files[fileIndex - 1];
+
+            Console.WriteLine($"Reading file: {filePath}");
+            Console.WriteLine();
+
+            return filePath;
+        }
 
         private static void PrintRegionSubtotal(string currentRegion, decimal regionTotal, int regionCount)
         {
