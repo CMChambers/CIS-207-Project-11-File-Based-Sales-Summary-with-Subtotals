@@ -1,4 +1,5 @@
 ﻿// a class to handle getting cli input.
+using System;
 
 namespace CIS207.Input
 {
